@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slider</title>
+    <link rel="stylesheet" href="faq-slider.css">
+</head>
+<body>
+    <div class="slider-container">
+        <div onclick="slide(this.parentElement, +1);" class="controls left"><</div>
+        <div onclick="slide(this.parentElement, -1);" class="controls right">></div>
+        <div class="slider">
+            <div class="item show">
+                <a href="#">
+                    <img src="./../assets/img/nature-1.jpg">
+                </a>
+            </div>
+            <div class="item">
+                <a href="#">
+                    <img src="./../assets/img/nature-2.jpg">
+                </a>
+            </div>
+            <div class="item">
+                <a href="#">
+                    <img src="./../assets/img/nature-3.jpg">
+                </a>
+            </div>
+            <div class="item">
+                <a href="#">
+                    <img src="./../assets/img/nature-4.jpg">
+                </a>
+            </div>
+            <div class="item">
+                <a href="#">
+                    <img src="./../assets/img/nature-5.jpg">
+                </a>
+            </div>
+            <div class="item">
+                <a href="#">
+                    <img src="./../assets/img/nature-6.jpg">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="faq">
+        <div class="ans-side">
+            <div class="ans-item show">
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+            </div>
+            <div class="ans-item">
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+            </div>
+            <div class="ans-item">
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+            </div>
+            <div class="ans-item">
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+            </div>
+        </div>
+        <div class="q-side">
+            <div class="q-item show" onclick="faq(this)">سوال 1</div>
+            <div class="q-item" onclick="faq(this)">سوال 2</div>
+            <div class="q-item" onclick="faq(this)">سوال 3</div>
+            <div class="q-item" onclick="faq(this)">سوال 4</div>
+        </div>
+    </div>
+
+    <script>
+
+        function faq(qEl) {
+            let allAns = qEl.parentElement.parentElement.querySelectorAll('.ans-item');
+            let allQ = qEl.parentElement.querySelectorAll('.q-item');
+            let arr = Array.prototype.slice.call(allQ); // Now it's an Array.
+            let idx = Array.prototype.indexOf.call(arr, qEl);
+
+            allAns.forEach((item) => {
+                item.classList.remove('show');
+            })
+            allAns[idx].classList.add('show');
+            allQ.forEach((item) => {
+                item.classList.remove('show');
+            })
+            allQ[idx].classList.add('show');
+        }
+
+
+
+
+
+        /*
+         * slider
+         */
+        let myInterval = setInterval(() => {
+            slide(document.querySelector('.slider-container'), +1);
+        }, 5000)
+        function resetSliderTimer() {
+            clearInterval(myInterval);
+            myInterval = setInterval(() => {
+                slide(document.querySelector('.slider-container'), +1);
+            }, 5000)
+        }
+        function slide(el, dir) {
+            let slider = el.parentElement.querySelector('.slider');
+            let allSlides = slider.querySelectorAll('.item');
+            let showingEl = slider.querySelector('.item.show');
+
+            let arr = Array.prototype.slice.call(allSlides); // Now it's an Array.
+            let activeIndex = Array.prototype.indexOf.call(arr, showingEl);
+            let newIndex;
+            if (dir > 0) {
+                newIndex = activeIndex < allSlides.length - 1 ? activeIndex + 1 : 0;
+            } else {
+                newIndex = activeIndex > 0 ? activeIndex - 1 : allSlides.length - 1;
+            }
+            resetSliderTimer();
+            allSlides.forEach((item) => {
+                item.classList.remove('show');
+            })
+            allSlides[newIndex].classList.add('show');
+        }
+    </script>
+</body>
+</html>
